@@ -31,6 +31,9 @@ class Game
   def won?
     WIN_COMBINATIONS.detect do |combo|
     @board.cells[combo[0]] == @board.cells[combo[1]] && @board.cells[combo[1]] == @board.cells[combo[2]] && @board.taken?(combo[0]+1)
+
+    @board.cells[combo[0]] == @board.cells[combo[1]] && @board.cells[combo[1]] == @board.cells[combo[2]] && @board.taken?(combo[0])
+
     end
   end
 
@@ -40,6 +43,13 @@ class Game
 
   def over?
      won? || draw?
+
+    @board.full? && !self.won?
+  end
+
+  def over?
+    self.draw? || self.won?
+
   end
 
   def winner
@@ -63,9 +73,13 @@ class Game
   end
 
   def play
+
     while !over?
       turn
     end
+
+    turn while !over? && !draw?
+
     if won?
       puts "Congratulations #{winner}!"
     elsif draw?
