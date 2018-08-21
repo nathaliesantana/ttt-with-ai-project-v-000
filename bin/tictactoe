@@ -6,4 +6,4 @@ require_relative '../lib/players/human'
 require_relative '../lib/board'
 require_relative '../lib/game'
 require_relative '../lib/player'
-Game.new("X")
+Player.new("X")
